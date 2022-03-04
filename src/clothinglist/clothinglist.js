@@ -2,6 +2,9 @@ import React, {useState} from "react";
 import { items } from "../App";
 import "./clothinglist.css";
 import { isAdmin } from "../rolewrapper/rolewrapper";
+import Button from "react-bootstrap/Button";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Table from "react-bootstrap/Table";
 
 const updateList = (newId, newName, newPrice, newDescription, newStock) => {
 
@@ -63,7 +66,7 @@ export const ClothingList = (f) =>
         const form = (
         <div id="center" className="clothes-list">
             <u><h1> List of Clothes </h1></u>
-            {allItems.map(({ID, Name, Price, Description, Stock}) =>
+            {allItems.filter(e => e.Name === f.filter || f.filter === "").map(({ID, Name, Price, Description, Stock}) =>
                 <ul key={ID}>
                     <li><b>ID:</b> {ID}</li>
                     <li><b>Name:</b> {Name}</li>
@@ -73,7 +76,7 @@ export const ClothingList = (f) =>
                 </ul>
             )}  
             <h3>Add New Items</h3>
-                <table>
+                <Table hover>
                     <tbody>
                         <tr>
                             <td>ID:</td>
@@ -96,10 +99,12 @@ export const ClothingList = (f) =>
                             <td><input type="number" value={newStock} onChange={(e) => setNewStock(e.target.value)}/></td>
                         </tr>
                         <tr>
-                            <td><button onClick={() => setAllItems([...updateList(newId, newName, newPrice, newDescription, newStock)])}>Add Item</button></td>
+                            <td><Button variant="primary"onClick=
+                                        {() => setAllItems([...updateList(newId, newName, newPrice, newDescription, newStock)])}>
+                                        Add Item</Button></td>
                         </tr>
                     </tbody>
-                </table>
+                </Table>
         </div>);
         return form;
     }
