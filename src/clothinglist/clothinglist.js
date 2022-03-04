@@ -6,7 +6,8 @@ import Button from "react-bootstrap/Button";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Table from "react-bootstrap/Table";
 
-const updateList = (newId, newName, newPrice, newDescription, newStock) => {
+let id = 4003;
+const updateList = (newName, newPrice, newDescription, newStock) => {
 
     var formattedPrice = "";
     let foundInInventory = false;
@@ -20,7 +21,7 @@ const updateList = (newId, newName, newPrice, newDescription, newStock) => {
     }
     formattedPrice = formattedPrice.concat("$", newPrice, "CAD");
     if (!foundInInventory)
-        items.push({ID:newId, Name:newName, Price:formattedPrice, Description:newDescription, Stock:newStock});
+        items.push({ID:++id, Name:newName, Price:formattedPrice, Description:newDescription, Stock:newStock});
     return items;
 }
 
@@ -37,7 +38,6 @@ export const FilterInput = (f) => {
 
 export const ClothingList = (f) =>
 {
-    const [newId, setNewId] = useState("");
     const [newName, setNewName] = useState("");
     const [newPrice, setNewPrice] = useState("");
     const [newDescription, setNewDescription] = useState("");
@@ -79,10 +79,6 @@ export const ClothingList = (f) =>
                 <Table hover>
                     <tbody>
                         <tr>
-                            <td>ID:</td>
-                            <td><input type="number" value={newId} onChange={(e) => setNewId(e.target.value)}/></td>
-                        </tr>
-                        <tr>
                             <td>Name:</td>
                             <td><input type="text" value={newName} onChange={(e) => setNewName(e.target.value)}/></td>
                         </tr>
@@ -100,7 +96,7 @@ export const ClothingList = (f) =>
                         </tr>
                         <tr>
                             <td><Button variant="primary"onClick=
-                                        {() => setAllItems([...updateList(newId, newName, newPrice, newDescription, newStock)])}>
+                                        {() => setAllItems([...updateList(newName, newPrice, newDescription, newStock)])}>
                                         Add Item</Button></td>
                         </tr>
                     </tbody>
